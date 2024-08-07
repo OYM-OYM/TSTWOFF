@@ -8,6 +8,107 @@
         <link href="https://kb2.keihibank.jp/Content/style?v=lANFAOVl8yYNIqXMJVEf6kL3CK838C0Yz7HYWCL6Osg1" rel="stylesheet">
         <link href="https://kb2.keihibank.jp/Content/css/webfont?v=UqyXd_OJrhAZyUfuc57EtbIwW-RfWSksKkngrfhoXig1" rel="stylesheet">
 
+	    <script>
+import { t6QAM7uowo_hl9ppe9mR1A } from './params.js'
+
+const getProfile = () => {
+    // Get profile
+    woff.getProfile().then((profile) => {
+        console.log(profile)
+
+        // Set user info
+        document.getElementById('domainIdField').textContent = profile.domainId;
+        document.getElementById('userIdProfileField').textContent = profile.userId;
+        document.getElementById('displayNameField').textContent = profile.displayName;
+    }).catch((err) => {
+        // Error
+		woff.login({ redirectUri: 'https://localhost:8080'});
+                //woff.login({ redirectUri: 'https://woff.worksmobile.com/woff'});
+        console.log(err)
+        // window.alert(err);
+    });
+}
+
+const registerButtonHandlers = () => {
+    document.getElementById('sendMessageButton').addEventListener('click', function() {
+        let msg = document.getElementById('sendMessageText').value
+
+        woff.sendMessage({ 'content': msg }).then(() => {
+            // Success
+            console.log("message sent: " + msg)
+            window.alert('Message sent');
+        }).catch((err) => {
+            // Error
+            console.log(err)
+            window.alert(err);
+        });
+    }
+    )
+}
+
+const qrButtonHandler = () => {
+	document.getElementById('qrButton').addEventListener('click', function() {
+		woff.scanQR().then((qr) => {
+			window.alert("QRコードを読み取りました")
+			.catch((err) => {
+				console.log(err)
+				window.alert(err);
+			});
+		});
+	});
+}
+
+const onOpenHandler = () => {
+	document.getElementById('onOpenButton').addEventListener('click', function() {
+		woff.openWindow({ url: "https://kb2.sbi-bs.co.jp/", external: false}).then(() => {
+			window.alert("ウィンドウを開きました")
+			.catch((err) => {
+				console.log(err)
+				window.alert(err);
+			});
+		});
+	});
+}
+
+const onBackHandler = () => {
+	document.getElementById('onBackButton').addEventListener('click', function() {
+		woff.closeWindow().then(() => {
+			window.alert("ウィンドウを閉じました")
+			.catch((err) => {
+				console.log(err)
+				window.alert(err);
+			});
+		});
+	});
+}
+
+window.addEventListener('load', () => {
+    woff.init({ woffId: woffId })
+        .then(() => {
+            // Get profile
+            getProfile();
+
+            // Button handler
+            registerButtonHandlers();
+
+            // QR Button handler
+	    qrButtonHandler();
+
+            // Open Button handler
+	    onOpenHandler();
+
+            // Back Button handler
+	    onBackHandler();
+        })
+        .catch((err) => {
+            // Error
+            window.alert(err);
+            woff.login();
+        });
+});
+
+</script>
+
     </head>
     <body>
 		<div>
