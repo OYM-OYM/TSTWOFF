@@ -9,7 +9,7 @@
         <link href="https://kb2.keihibank.jp/Content/css/webfont?v=UqyXd_OJrhAZyUfuc57EtbIwW-RfWSksKkngrfhoXig1" rel="stylesheet">
 
 	    <script>
-import { t6QAM7uowo_hl9ppe9mR1A } from './params.js'
+const woffId = 't6QAM7uowo_hl9ppe9mR1A'
 
 const getProfile = () => {
     // Get profile
@@ -22,8 +22,8 @@ const getProfile = () => {
         document.getElementById('displayNameField').textContent = profile.displayName;
     }).catch((err) => {
         // Error
-		woff.login({ redirectUri: 'https://localhost:8080'});
-                //woff.login({ redirectUri: 'https://woff.worksmobile.com/woff'});
+		//woff.login({ redirectUri: 'https://localhost:8080'});
+                woff.login({ redirectUri: 'https://woff.worksmobile.com/woff'});
         console.log(err)
         // window.alert(err);
     });
