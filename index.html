@@ -28,7 +28,7 @@
           const getProfile = () => {
             woff.getProfile().then((profile) => {
               console.log(profile)
-              document.getElementById('domainIdField').textContent = profile.domainId;
+              document.getElementById('domainIdField').value = profile.domainId;
               document.getElementById('userIdProfileField').textContent = profile.userId;
               document.getElementById('displayNameField').textContent = profile.displayName;
             }).catch((err) => {
@@ -108,10 +108,9 @@
     </head>
 
     <body>
-      <div>
-        <h2>入力してください</h2>
-      </div>
-
+        <div>
+          <h2>ユーザーのプロフィール情報を取得</h2>
+        </div>
         <div class="form-group">
           <div class="col-1">
             <label class="label-1">TEST1</label>
