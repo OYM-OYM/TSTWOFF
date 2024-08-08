@@ -1,150 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Type" charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>TEST</title>
-        <link href="https://kb2.keihibank.jp/Content/themes/base/css?v=CIix2w_FL27-Kw675nWxxV1bXMuxHuch2ppI77pB3SI1" rel="stylesheet">
-        <link href="https://kb2.keihibank.jp/Content/style?v=lANFAOVl8yYNIqXMJVEf6kL3CK838C0Yz7HYWCL6Osg1" rel="stylesheet">
-        <link href="https://kb2.keihibank.jp/Content/css/webfont?v=UqyXd_OJrhAZyUfuc57EtbIwW-RfWSksKkngrfhoXig1" rel="stylesheet">
-	<script charset="utf-8" src="https://static.worksmobile.net/static/wm/woff/edge/3.6/sdk.js"></script>
-	    
-	    <script>
-const woffId = 't6QAM7uowo_hl9ppe9mR1A'
+        
+        <style>
+          body {
+            color: #f5f5f5;
+          }
 
-const getProfile = () => {
-    // Get profile
-    woff.getProfile().then((profile) => {
-        console.log(profile)
+          .form-group {
+            color: #000080;
+            font-size: 20px;
+          }
 
-        // Set user info
-        document.getElementById('domainIdField').textContent = profile.domainId;
-        document.getElementById('userIdProfileField').textContent = profile.userId;
-        document.getElementById('displayNameField').textContent = profile.displayName;
-    }).catch((err) => {
-        // Error
-		//woff.login({ redirectUri: 'https://localhost:8080'});
-                //woff.login({ redirectUri: 'https://woff.worksmobile.com/woff'});
-        console.log(err)
-        // window.alert(err);
-    });
-}
+        </style>
 
-const registerButtonHandlers = () => {
-    document.getElementById('sendMessageButton').addEventListener('click', function() {
-        let msg = document.getElementById('sendMessageText').value
+        <script src="https://static.worksmobile.net/static/wm/woff/edge/3.6/sdk.js"></script>
 
-        woff.sendMessage({ 'content': msg }).then(() => {
-            // Success
-            console.log("message sent: " + msg)
-            window.alert('Message sent');
-        }).catch((err) => {
-            // Error
-            console.log(err)
-            window.alert(err);
-        });
-    }
-    )
-}
+        <script>
+          const woffId = "t6QAM7uowo_hl9ppe9mR1A";
+        </script>
 
-const qrButtonHandler = () => {
-	document.getElementById('qrButton').addEventListener('click', function() {
-		woff.scanQR().then((qr) => {
-			window.alert("QRコードを読み取りました")
-			.catch((err) => {
-				console.log(err)
-				window.alert(err);
-			});
-		});
-	});
-}
+        <script>
+          const getProfile = () => {
+            woff.getProfile().then((profile) => {
+              console.log(profile)
+              document.getElementById('domainIdField').textContent = profile.domainId;
+              document.getElementById('userIdProfileField').textContent = profile.userId;
+              document.getElementById('displayNameField').textContent = profile.displayName;
+            }).catch((err) => {
+              woff.login({ redirectUri: 'https://localhost:8080'});
+              console.log(err)
+            });
+          }
 
-const onOpenHandler = () => {
-	document.getElementById('onOpenButton').addEventListener('click', function() {
-		woff.openWindow({ url: "https://kb2.sbi-bs.co.jp/", external: false}).then(() => {
-			window.alert("ウィンドウを開きました")
-			.catch((err) => {
-				console.log(err)
-				window.alert(err);
-			});
-		});
-	});
-}
 
-const onBackHandler = () => {
-	document.getElementById('onBackButton').addEventListener('click', function() {
-		woff.closeWindow().then(() => {
-			window.alert("ウィンドウを閉じました")
-			.catch((err) => {
-				console.log(err)
-				window.alert(err);
-			});
-		});
-	});
-}
+          const registerButtonHandlers = () => {
+            document.getElementById('sendMessageButton').addEventListener('click', function() {
+              let msg = document.getElementById('sendMessageText').value
 
-window.addEventListener('load', () => {
-    woff.init({ woffId: woffId })
-        .then(() => {
-            // Get profile
-            getProfile();
+              woff.sendMessage({ 'content': msg }).then(() => {
+                console.log("message sent: " + msg)
+                window.alert('Message sent');
+              }).catch((err) => {
+                console.log(err)
+                window.alert(err);
+              });
+            })
+          }
 
-            // Button handler
-            registerButtonHandlers();
+          const qrButtonHandler = () => {
+	    document.getElementById('qrButton').addEventListener('click', function() {
+              woff.scanQR().then((qr) => {
+                window.alert("QRコードを読み取りました")
+              .catch((err) => {
+	         console.log(err)
+                 window.alert(err);
+                });
+              });
+	    });
+          }
 
-            // QR Button handler
-	    qrButtonHandler();
+          const onOpenHandler = () => {
+	    document.getElementById('onOpenButton').addEventListener('click', function() {
+              woff.openWindow({ url: "https://kb2.sbi-bs.co.jp/", external: false}).then(() => {
+                window.alert("ウィンドウを開きました")
+              .catch((err) => {
+                  console.log(err)
+                  window.alert(err);
+              });
+	      });
+	    });
+          }
 
-            // Open Button handler
-	    onOpenHandler();
+          const onBackHandler = () => {
+	    document.getElementById('onBackButton').addEventListener('click', function() {
+              woff.closeWindow().then(() => {
+                window.alert("ウィンドウを閉じました")
+                .catch((err) => {
+                  console.log(err)
+                  window.alert(err);
+                });
+              });
+            });
+          }
 
-            // Back Button handler
-	    onBackHandler();
-        })
-        .catch((err) => {
-            // Error
-            window.alert(err);
-            woff.login();
-        });
-});
+          window.addEventListener('load', () => {
+            woff.init({ woffId: woffId })
+            .then(() => {
+              getProfile();
+              registerButtonHandlers();
+	      qrButtonHandler();
+	      onOpenHandler();
+	      onBackHandler();
+            })
+            .catch((err) => {
+              window.alert(err);
+              woff.login();
+            });
+          });
 
-</script>
+        </script>
 
     </head>
+
     <body>
-		<div>
-			<h2>入力してください</h2>
-		</div>
-        <table>
-            <tr>
-                <th>domainId</th>
-                <td id="domainIdField"></td>
-            </tr>
-            <tr>
-                <th>userId</th>
-                <td id="userIdProfileField"></td>
-            </tr>
-            <tr>
-                <th>displayName</th>
-                <td id="displayNameField"></td>
-            </tr>
-        </table>
+      <div>
+        <h2>入力してください</h2>
+      </div>
+
+        <div class="form-group">
+          <div class="col-1">
+            <label class="label-1">TEST1</label>
+          </div>
+          <div class="col-2">
+            <input class="input-1" id="domainIdField" type="text" value="" />
+          </div>
+          <div class="col-1">
+            <label class="label-1">TEST2</label>
+          </div>
+          <div class="col-2">
+            <input class="input-1" id="userIdProfileField" type="text" value="" />
+          </div>
+          <div class="col-1">
+            <label class="label-1">TEST3</label>
+          </div>
+          <div class="col-2">
+            <input class="input-1" id="displayNameField" type="text" value="" />
+          </div>
+        </div>
+
         <h2>トークルームにメッセージを送る</h2>
         <div class="buttonRow">
             <input type="text" value="text" name="message" id="sendMessageText">
-            <button id="sendMessageButton" class="btn">送信
-			</button>
+            <button id="sendMessageButton" class="btn">送信</button>
         </div>
-		<div>
-			<button id="qrButton">QRリーダーを起動する</button>
-		</div>
-		<div>
-			<Button id="onOpenButton">製品情報</Button>
-		</div>	
-		<div>
-			<button id="onBackButton">ブラウザーを閉じる</button>
-		</div>
-        <script src="https://static.worksmobile.net/static/wm/woff/edge/3.6/sdk.js"> </script>
-        <script type="module" src="index.js"></script>
+
+      <div><button id="qrButton">QRリーダーを起動する</button></div>
+      <div><Button id="onOpenButton">製品情報</Button></div> 
+      <div><button id="onBackButton">ブラウザーを閉じる</button></div>
     </body>
 </html>
